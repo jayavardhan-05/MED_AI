@@ -1,590 +1,357 @@
-# 🏥 MED AI - Medical Pathology Q&A System
+# 🏥 MED AI — Universal Clinical Intelligence Suite
 
-A full-stack AI-powered medical question-answering system that uses advanced natural language processing to provide accurate answers based on pathology documents. The system combines a powerful FastAPI backend with a modern React frontend to deliver an intuitive chat interface for medical professionals and researchers.
+A full-stack, AI-powered universal medical assistant and clinical decision support system. MED AI combines a high-performance **FastAPI** backend with a modern **React + TypeScript** frontend to deliver accurate, structured, and evidence-grounded medical guidance across all clinical specialties.
 
-![MED AI Banner](https://img.shields.io/badge/MED%20AI-Pathology%20Assistant-blue?style=for-the-badge)
-![Python](https://img.shields.io/badge/Python-3.9+-green?style=flat-square)
-![React](https://img.shields.io/badge/React-18.3-blue?style=flat-square)
-![FastAPI](https://img.shields.io/badge/FastAPI-Latest-teal?style=flat-square)
+![MED AI](https://img.shields.io/badge/MED%20AI-Clinical%20Intelligence-0284c7?style=for-the-badge)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688?style=flat-square&logo=fastapi)
+![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat-square&logo=python)
+![React](https://img.shields.io/badge/React-18.3-61DAFB?style=flat-square&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.5-3178C6?style=flat-square&logo=typescript)
+![Vite](https://img.shields.io/badge/Vite-5.4-646CFF?style=flat-square&logo=vite)
+![Groq](https://img.shields.io/badge/LLM-Groq%20AI%20(Free)-f55036?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
+
+---
+
+## ⚡ Quick Start
+
+Run both backend and frontend with simple commands:
+
+```bash
+# Terminal 1 — Start Backend API (Port 8000)
+cd backend
+python run.py
+
+# Terminal 2 — Start Frontend App (Port 8080)
+npm run dev
+```
+
+Open [http://localhost:8080](http://localhost:8080) in your browser.
+
+---
 
 ## 📋 Table of Contents
 
-- [Overview](#overview)
-- [Features](#features)
-- [Architecture](#architecture)
-- [Tech Stack](#tech-stack)
-- [Project Structure](#project-structure)
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Usage](#usage)
-- [API Documentation](#api-documentation)
-- [Development](#development)
-- [Deployment](#deployment)
-- [Troubleshooting](#troubleshooting)
-- [Contributing](#contributing)
-- [License](#license)
+- [Overview](#-overview)
+- [Key Features](#-key-features)
+- [System Architecture](#️-system-architecture)
+- [Clinical Intent Engine](#-clinical-intent-engine)
+- [Tech Stack](#-tech-stack)
+- [Project Structure](#-project-structure)
+- [Installation & Setup](#-installation--setup)
+- [Configuration (.env)](#-configuration-env)
+- [API Endpoints](#-api-endpoints)
+- [Short Running Commands](#-short-running-commands)
+- [Contributing](#-contributing)
+- [License](#-license)
+
+---
 
 ## 🎯 Overview
 
-MED AI is an intelligent medical assistant that leverages state-of-the-art AI technologies to answer questions about pathology. It uses:
+Unlike traditional single-source textbook lookups, **MED AI** is a universal clinical assistant capable of answering questions across **all medical disciplines**:
 
-- **Vector Database (FAISS)** for efficient semantic search across medical documents
-- **HuggingFace Embeddings** for converting text into meaningful vector representations
-- **Meta's Llama-3-70B** language model via Together.ai for generating accurate, context-aware responses
-- **FastAPI** for a high-performance backend API
-- **React + TypeScript** for a modern, responsive frontend
+- **Universal Medical Synthesis**: Answers any medical inquiry, from everyday patient questions to complex pathology.
+- **Evidence-Based Knowledge Grounding**: RAG vector database (FAISS) indexing *Robbins & Cotran: Pathologic Basis of Disease* and the *Clinical Pharmacology & Therapeutics Manual*.
+- **Dynamic File Ingestion**: Drag-and-drop any custom medical PDF or text file into active memory.
+- **Clinical Intent Classification**: Detects the query domain (Pharmacology, Diagnostics, Pathology, Patient Relief, Surgery) and tailors the clinical structure automatically.
+- **Safety Triage Guardrails**: Flags life-threatening emergencies (e.g., myocardial infarction, stroke, anaphylaxis) with instant alert protocols.
+- **Multi-Turn Clinical Memory**: Retains conversational context across back-and-forth consultation turns.
 
-## ✨ Features
+---
 
-### 🤖 AI-Powered Responses
-- Natural language understanding of medical queries
-- Context-aware answers based on pathology documents
-- Source citation for transparency and verification
+## ✨ Key Features
 
-### 💬 Interactive Chat Interface
-- Real-time question-answering
-- Clean, modern UI with dark mode support
-- Mobile-responsive design
-- Typing indicators and smooth animations
+### 1. 🤖 Universal Multi-Provider LLM Engine
+- **Groq AI (Default & Free)**: Ultra-fast inference with `openai/gpt-oss-120b` and `qwen/qwen3.8-27b`.
+- **Multi-Provider Fallback**: Built-in support for Google Gemini (`gemini-1.5-flash`), Together AI, and OpenAI (`gpt-4o-mini`).
+- **Offline Extractive Synthesizer**: Pure Python fallback synthesizing cited evidence if offline.
 
-### 🔍 Advanced Search
-- Semantic similarity search using FAISS
-- Retrieves top 3 most relevant document chunks
-- Efficient vector-based retrieval
+### 2. 📄 Dynamic Medical Document Ingestion
+- Upload any medical research paper, clinical protocol, or textbook in **PDF, TXT, or MD** format.
+- Automatically parsed with `PyPDF2`, chunked with `RecursiveCharacterTextSplitter`, and vectorized into FAISS in real time.
 
-### 📚 Source Display
-- Shows source material used for answers
-- Displays metadata and context
-- Helps verify information accuracy
+### 3. 🧠 Smart Clinical Intent Classifier & Routing
+Automatically classifies queries into specialized domains:
+- 💊 **Pharmacology & Drug Therapy**: MOA, clinical dosing tables, adverse reactions, and contraindications.
+- 🩺 **Differential Diagnosis & Symptoms**: Presentation, emergency workup, and common vs. can't-miss diagnoses.
+- 🔬 **Pathology & Disease Mechanisms**: Stepwise cellular pathogenesis, etiology, and histomorphology.
+- 🩹 **Clinical Management & Interventions**: First-line regimens, surgical timing, and monitoring protocols.
+- 🌡️ **Patient Care & Symptom Relief**: Plain-language, friendly home care guidance, OTC dosing, and red flags.
 
-### 🚀 Performance
-- Fast response times with optimized embeddings
-- Asynchronous API endpoints
-- Hot-reload development mode
+### 4. 🚨 Emergency Red-Flag Triage System
+- Real-time detection of life-threatening clinical presentations:
+  - Acute Coronary Syndrome (ACS / Heart Attack)
+  - Acute Stroke (FAST signs)
+  - Severe Anaphylaxis
+  - Thunderclap Headache (SAH)
+  - Acute Poisoning & Toxic Ingestions
+  - Crisis Intervention / Mental Health
+- Renders high-priority alert cards instructing immediate emergency evaluation (911 / 112 / 999).
 
-## 🏗️ Architecture
+### 5. 💬 Multi-Turn Clinical Context Memory
+- Maintains full conversational memory across consultation turns.
+- Supports follow-ups such as: *"What if the patient is a child?"* or *"Can this be combined with metformin?"*.
+- Includes a **"New Case"** button to reset consultation state.
+
+### 6. 🎙️ Voice Dictation (Web Speech API)
+- Click the microphone button in the chat input bar to speak complex medical terms hands-free.
+
+### 7. 📑 Clinical Case Summary Export
+- **Print / Save as PDF**: Formats a clinic-ready consultation summary report.
+- **Markdown Export (`.md`)**: Downloads a timestamped consultation file with dialogue turns, detected intents, and cited references.
+
+### 8. 📊 Structured Table Boxes
+- Integrates `react-markdown` and `remark-gfm` to render clinical comparison tables into styled, responsive card boxes with zebra shading.
+
+---
+
+## 🏗️ System Architecture
 
 ```
-┌─────────────────┐         ┌──────────────────┐         ┌─────────────────┐
-│                 │         │                  │         │                 │
-│  React Frontend │◄───────►│  FastAPI Backend │◄───────►│  Together.ai    │
-│  (Port 8080)    │  HTTP   │  (Port 8000)     │   API   │  Llama-3-70B    │
-│                 │         │                  │         │                 │
-└─────────────────┘         └──────────────────┘         └─────────────────┘
-                                     │
-                                     │
-                                     ▼
-                            ┌─────────────────┐
-                            │                 │
-                            │  FAISS Vector   │
-                            │    Database     │
-                            │                 │
-                            └─────────────────┘
+┌────────────────────────────────────────────────────────┐
+│                   MED AI Frontend                      │
+│             React 18 + TypeScript + Vite               │
+│  • Voice Dictation (🎙️)      • GFM Table Boxes (📊)     │
+│  • Intent Badges (💊/🩺)    • PDF/MD Case Export (📑)   │
+└───────────────────────────▲────────────────────────────┘
+                            │ HTTP / Reverse Proxy (:8080)
+                            ▼
+┌────────────────────────────────────────────────────────┐
+│                   FastAPI Backend                      │
+│                 Python 3.10+ (:8000)                   │
+├────────────────────────────────────────────────────────┤
+│  1. Emergency Red-Flag Triage Detector                 │
+│  2. Clinical Intent Classifier & Prompt Routing        │
+│  3. Multi-Turn Context Assembler                       │
+│  4. FAISS Semantic Retriever (MiniLM-L6-v2)            │
+│  5. Dynamic PDF/TXT Ingestor & Text Splitter           │
+└───────────────▲────────────────────────▲───────────────┘
+                │                        │
+                ▼                        ▼
+┌───────────────────────────────┐ ┌──────────────────────┐
+│       Vector Database         │ │    LLM Providers     │
+│       FAISS (Local)           │ │ • Groq (Fast & Free) │
+│ • Robbins Pathology Core      │ │ • Google Gemini      │
+│ • Clinical Pharmacology Core  │ │ • Together AI        │
+│ • User-Uploaded Documents     │ │ • OpenAI             │
+└───────────────────────────────┘ └──────────────────────┘
 ```
 
-### Data Flow
+---
 
-1. **User Input**: User types a medical question in the frontend
-2. **API Request**: Frontend sends POST request to `/ask` endpoint
-3. **Vector Search**: Backend performs similarity search in FAISS database
-4. **Context Retrieval**: Top 3 relevant document chunks are retrieved
-5. **LLM Processing**: Context + question sent to Llama-3-70B model
-6. **Response Generation**: AI generates answer based on context
-7. **Display**: Answer and sources displayed in the chat interface
+## 🩺 Clinical Intent Engine
+
+| Intent Domain | Icon | Key Focus Areas | Output Structure |
+| :--- | :---: | :--- | :--- |
+| **Patient Care & Relief** | 🌡️ | Home care, temperature reduction, comfort | Friendly plain-language steps, OTC dosing, red flags |
+| **Pharmacology & Drugs** | 💊 | Drug mechanism, dosing, adverse effects | MOA, approved indications, side effects, drug interactions |
+| **Diagnostics & Symptoms** | 🩺 | Clinical presentation, workup, differentials | Common causes, differential table, diagnostic workup |
+| **Pathology & Mechanisms** | 🔬 | Cellular injury, morphology, etiology | Stepwise pathogenesis, histomorphology, clinical correlation |
+| **Clinical Management** | 🩹 | Medical regimens, surgical interventions | First-line therapies, procedural timing, complications |
+
+---
 
 ## 🛠️ Tech Stack
 
-### Backend (`my proj/`)
-- **Framework**: FastAPI
-- **Language**: Python 3.9+
-- **AI/ML Libraries**:
-  - LangChain (orchestration)
-  - FAISS (vector database)
-  - HuggingFace Transformers (embeddings)
-  - Sentence Transformers
-- **LLM**: Meta Llama-3-70B via Together.ai
-- **Server**: Uvicorn (ASGI)
-- **Environment**: python-dotenv
+### Backend
+- **Framework**: FastAPI (Asynchronous ASGI)
+- **Language**: Python 3.10+
+- **Server**: Uvicorn (with live reload)
+- **Vector Search**: FAISS (`faiss-cpu`)
+- **Embeddings**: HuggingFace `all-MiniLM-L6-v2` via `sentence-transformers`
+- **Text Processing**: `langchain-text-splitters`, `PyPDF2`
+- **Primary LLM**: Groq Cloud API (`openai/gpt-oss-120b`, `qwen/qwen3.8-27b`)
 
-### Frontend (`med-ask-insight/`)
+### Frontend
 - **Framework**: React 18.3
 - **Language**: TypeScript
-- **Build Tool**: Vite 5.4
-- **UI Library**: shadcn/ui + Radix UI
-- **Styling**: Tailwind CSS
+- **Bundler**: Vite 5.4
+- **Styling**: Tailwind CSS + `@tailwindcss/typography`
+- **Components**: shadcn/ui + Radix UI primitives
+- **Markdown & Tables**: `react-markdown` + `remark-gfm`
 - **Icons**: Lucide React
-- **Routing**: React Router DOM
-- **State Management**: React Hooks
+- **Notifications**: Sonner
+
+---
 
 ## 📁 Project Structure
 
 ```
-main.api.py/
+MED_AI/
 │
-├── my proj/                      # Backend Application
-│   ├── app.py                    # Main FastAPI application
-│   ├── create_database.py        # Script to create FAISS database
-│   ├── check_import.py           # Dependency verification
-│   ├── document.txt              # Source medical document
-│   ├── my_faiss_index/           # FAISS vector database
-│   ├── requirements.txt          # Python dependencies
-│   ├── .env                      # Environment variables
-│   └── venv/                     # Python virtual environment
+├── backend/                             # FastAPI Backend Service
+│   ├── data/
+│   │   ├── clinical_pharmacology_guide.txt  # Core pharmacology knowledge
+│   │   └── uploads/                         # User-uploaded PDFs/documents
+│   ├── my_faiss_index/                  # Local FAISS vector index
+│   ├── app.py                           # Core API server & clinical logic
+│   ├── run.py                           # Short backend runner
+│   ├── requirements.txt                 # Python dependencies
+│   ├── .env                             # Private API keys (git-ignored)
+│   ├── .env.example                     # Environment template
+│   └── .gitignore                       # Backend ignore rules
 │
-├── med-ask-insight/              # Frontend Application
+├── frontend/                            # React + TypeScript + Vite UI
+│   ├── public/
+│   │   ├── med-ai-logo.svg              # Custom MED AI vector logo
+│   │   └── favicon.svg                  # Website vector favicon
 │   ├── src/
-│   │   ├── components/           # React components
-│   │   │   ├── ChatInterface.tsx # Main chat UI
-│   │   │   ├── Header.tsx        # App header
-│   │   │   ├── SourceDisplay.tsx # Source citations
-│   │   │   └── ui/               # shadcn/ui components
+│   │   ├── components/
+│   │   │   ├── ChatInterface.tsx        # Chat UI, voice, memory, triage
+│   │   │   ├── Header.tsx               # Top navigation bar
+│   │   │   ├── MarkdownRenderer.tsx     # GFM table boxes & card formatting
+│   │   │   ├── SourceDisplay.tsx        # Cited sources & active libraries
+│   │   │   └── ui/                      # shadcn/ui component primitives
 │   │   ├── lib/
-│   │   │   ├── api.ts            # API service layer
-│   │   │   ├── config.ts         # Configuration
-│   │   │   └── utils.ts          # Utility functions
+│   │   │   ├── api.ts                   # Typed API service client
+│   │   │   ├── config.ts                # API configuration & endpoints
+│   │   │   └── utils.ts                 # Utility functions
 │   │   ├── pages/
-│   │   │   └── Index.tsx         # Main page
-│   │   ├── App.tsx               # App component
-│   │   ├── main.tsx              # Entry point
-│   │   └── index.css             # Global styles
-│   ├── public/                   # Static assets
-│   ├── package.json              # Node dependencies
-│   ├── vite.config.ts            # Vite configuration
-│   ├── tailwind.config.ts        # Tailwind configuration
-│   └── tsconfig.json             # TypeScript configuration
+│   │   │   └── Index.tsx                # Main application page
+│   │   ├── App.tsx                      # App root component
+│   │   ├── index.css                    # Tailwind design system
+│   │   └── main.tsx                     # React DOM entry point
+│   ├── package.json                     # Frontend dependencies & scripts
+│   ├── vite.config.ts                   # Vite config with API proxy
+│   └── .gitignore                       # Frontend ignore rules
 │
-└── README.md                     # This file
+├── package.json                         # Root project proxy scripts
+├── .gitignore                           # Repository master gitignore
+└── README.md                            # Documentation
 ```
 
-## 📦 Installation
+---
+
+## 📦 Installation & Setup
 
 ### Prerequisites
+- **Python**: 3.10, 3.11, or 3.12
+- **Node.js**: 18.x or higher
+- **npm**: 9.x or higher
 
-- **Python**: 3.9 or higher
-- **Node.js**: 16.x or higher
-- **npm**: 8.x or higher
-- **Git**: For cloning the repository
-
-### Step 1: Clone the Repository
-
+### 1. Clone the Repository
 ```bash
-git clone <your-repository-url>
-cd main.api.py
+git clone https://github.com/jayavardhan-05/MED_AI.git
+cd MED_AI
 ```
 
-### Step 2: Backend Setup
-
+### 2. Backend Setup
 ```bash
-# Navigate to backend directory
-cd "my proj"
+cd backend
 
-# Create virtual environment
-python -m venv venv
-
-# Activate virtual environment
-# On Windows (Git Bash):
-source venv/Scripts/activate
-# On Windows (CMD):
-venv\Scripts\activate
-# On macOS/Linux:
-source venv/bin/activate
-
-# Install dependencies
+# Install Python dependencies
 pip install -r requirements.txt
+
+# Create .env file from template
+cp .env.example .env
 ```
 
-### Step 3: Frontend Setup
+Open `backend/.env` and add your free Groq API key:
+```env
+GROQ_API_KEY=gsk_your_groq_api_key_here
+```
 
+### 3. Frontend Setup
 ```bash
-# Navigate to frontend directory
-cd ../med-ask-insight
+cd ../frontend
 
-# Install dependencies
+# Install Node dependencies
 npm install
 ```
 
-## ⚙️ Configuration
+---
 
-### Backend Configuration
+## ⚙️ Configuration (.env)
 
-Create a `.env` file in the `my proj/` directory:
+In `backend/.env`:
 
 ```env
-# Together.ai API Key (required)
-TOGETHER_API_KEY=your_together_ai_api_key_here
+# Primary LLM — 100% Free at https://console.groq.com
+GROQ_API_KEY=gsk_your_groq_key_here
+
+# Optional Alternative Providers
+GEMINI_API_KEY=
+TOGETHER_API_KEY=
+OPENAI_API_KEY=
 ```
 
-**Getting a Together.ai API Key:**
-1. Visit [Together.ai](https://api.together.xyz/)
-2. Sign up for an account
-3. Navigate to API Keys section
-4. Create a new API key
-5. Copy and paste it into your `.env` file
+---
 
-### Frontend Configuration
+## 🚀 Short Running Commands
 
-The frontend is pre-configured to work with the local backend. If you need to change the backend URL, modify `med-ask-insight/vite.config.ts`:
+### Run Everything from Project Root
 
-```typescript
-proxy: mode === 'development' ? {
-  '/api': {
-    target: 'http://localhost:8000',  // Change this if needed
-    changeOrigin: true,
-    secure: false,
-    rewrite: (path) => path.replace(/^\/api/, ''),
-  }
-} : undefined,
-```
+| Task | Command |
+| :--- | :--- |
+| **Start Backend** | `npm run backend` *(or `cd backend && python run.py`)* |
+| **Start Frontend** | `npm run dev` |
+| **Build Frontend** | `npm run build` |
 
-### FAISS Database Setup
-
-If you need to create or update the FAISS database:
+### Run from Specific Directories
 
 ```bash
-cd "my proj"
-source venv/Scripts/activate
-python create_database.py
-```
+# Inside backend/
+python run.py
+# (or python app.py)
 
-This will:
-- Read the `document.txt` file
-- Split it into chunks
-- Generate embeddings
-- Create the FAISS index in `my_faiss_index/`
-
-## 🚀 Usage
-
-### Running the Application
-
-You need to run both the backend and frontend simultaneously.
-
-#### Terminal 1: Start Backend
-
-```bash
-cd "my proj"
-source venv/Scripts/activate
-uvicorn app:app --reload --host 127.0.0.1 --port 8000
-```
-
-Expected output:
-```
-Loading models and database... This may take a moment.
-✅ Models and database loaded successfully.
-INFO:     Uvicorn running on http://127.0.0.1:8000
-INFO:     Application startup complete.
-```
-
-#### Terminal 2: Start Frontend
-
-```bash
-cd med-ask-insight
+# Inside frontend/
 npm run dev
 ```
 
-Expected output:
-```
-VITE v5.4.10  ready in 429 ms
+---
 
-➜  Local:   http://localhost:8080/
-➜  Network: http://10.x.x.x:8080/
-```
+## 🔌 API Endpoints
 
-### Accessing the Application
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `GET` | `/` | Root health check & greeting |
+| `GET` | `/health` | Server status (`{"status": "healthy"}`) |
+| `GET` | `/documents` | Lists active knowledge bases & indexed documents |
+| `POST` | `/upload` | Multipart file upload for PDF, TXT, or MD ingestion |
+| `POST` | `/ask` | Primary clinical Q&A endpoint (accepts question & multi-turn history) |
 
-1. Open your browser and navigate to: **http://localhost:8080**
-2. You'll see the MED AI chat interface
-3. Type a medical question in the input field
-4. Click the send button or press Enter
-5. Wait for the AI to process your question
-6. View the answer and source citations
-
-### Example Questions
-
-Try asking:
-- "What is pathology?"
-- "What are the main types of pathology?"
-- "Explain the difference between anatomical and clinical pathology"
-- "What is histopathology?"
-- "What are common pathology techniques?"
-
-## 📖 API Documentation
-
-### Base URL
-```
-http://localhost:8000
-```
-
-### Endpoints
-
-#### POST `/ask`
-Ask a question about the pathology document.
-
-**Request Body:**
+### Sample `/ask` Request
 ```json
-{
-  "question": "What is pathology?"
-}
-```
+POST /ask
+Content-Type: application/json
 
-**Response:**
-```json
 {
-  "answer": "Pathology is the study of disease...",
-  "sources": [
-    {
-      "content": "Relevant text from document...",
-      "metadata": {
-        "source": "document.txt",
-        "page": 1
-      }
-    }
+  "question": "What is the mechanism of action and dose of Lisinopril?",
+  "conversation_history": [
+    { "role": "user", "content": "What are the first-line treatments for hypertension?" },
+    { "role": "assistant", "content": "First-line agents include ACE inhibitors..." }
   ]
 }
 ```
 
-#### GET `/docs`
-Interactive API documentation (Swagger UI)
-
-Visit: http://localhost:8000/docs
-
-#### GET `/redoc`
-Alternative API documentation (ReDoc)
-
-Visit: http://localhost:8000/redoc
-
-### CORS Configuration
-
-The backend is configured to accept requests from:
-- `http://localhost:8080` (frontend dev server)
-- `http://127.0.0.1:8080`
-- `http://localhost:5173` (alternative Vite port)
-- All origins (`*`) in development mode
-
-## 🔧 Development
-
-### Backend Development
-
-The backend uses `--reload` flag for hot-reloading. Any changes to `app.py` will automatically restart the server.
-
-**Adding new endpoints:**
-```python
-@app.post("/new-endpoint")
-async def new_endpoint(data: YourModel):
-    # Your logic here
-    return {"result": "success"}
-```
-
-**Modifying the AI prompt:**
-Edit the prompt in `app.py` around line 55:
-```python
-prompt = f"""Your custom prompt here...
-
-<context>
-{context}
-</context>
-
-Question: {question}"""
-```
-
-### Frontend Development
-
-The frontend uses Vite's hot module replacement (HMR) for instant updates.
-
-**Adding new components:**
-```bash
-cd med-ask-insight/src/components
-# Create your component file
-```
-
-**Modifying the API service:**
-Edit `src/lib/api.ts` to add new API methods:
-```typescript
-static async newMethod(data: RequestType): Promise<ResponseType> {
-  return this.makeRequest<ResponseType>('/endpoint', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
-  });
+### Sample `/ask` Response
+```json
+{
+  "answer": "**💊 Drug Class & Mechanism of Action**\n...",
+  "sources": [
+    {
+      "content": "Lisinopril is a competitive ACE inhibitor...",
+      "metadata": { "source": "Clinical Pharmacology & Therapeutics Manual" }
+    }
+  ],
+  "intent": {
+    "category": "Pharmacology & Drug Therapy",
+    "icon": "💊",
+    "focus": "Mechanism of Action (MOA), Clinical Dosing, Adverse Reactions & Interactions"
+  },
+  "red_flag": null
 }
 ```
 
-### Building for Production
+---
 
-#### Backend
-```bash
-cd "my proj"
-# No build step needed - Python runs directly
-# For deployment, use a production ASGI server
-```
+## ⚠️ Medical Disclaimer
 
-#### Frontend
-```bash
-cd med-ask-insight
-npm run build
-```
-
-This creates an optimized production build in `dist/` directory.
-
-## 🌐 Deployment
-
-### Backend Deployment Options
-
-1. **Render.com** (Recommended)
-   - Create a new Web Service
-   - Connect your repository
-   - Set build command: `pip install -r requirements.txt`
-   - Set start command: `uvicorn app:app --host 0.0.0.0 --port $PORT`
-   - Add environment variable: `TOGETHER_API_KEY`
-
-2. **Railway.app**
-   - Similar setup to Render
-   - Automatic deployments from Git
-
-3. **AWS EC2**
-   - Install Python and dependencies
-   - Use systemd or supervisor to manage the process
-   - Configure nginx as reverse proxy
-
-### Frontend Deployment Options
-
-1. **Vercel** (Recommended)
-   - Connect your repository
-   - Set root directory to `med-ask-insight`
-   - Add environment variable: `VITE_BACKEND_URL=your-backend-url`
-   - Auto-deploys on push
-
-2. **Netlify**
-   - Similar to Vercel
-   - Configure build settings
-
-3. **Static Hosting**
-   - Build: `npm run build`
-   - Upload `dist/` folder to any static host
-
-### Environment Variables for Production
-
-**Backend:**
-```env
-TOGETHER_API_KEY=your_production_api_key
-```
-
-**Frontend:**
-```env
-VITE_BACKEND_URL=https://your-backend-url.com
-```
-
-## 🐛 Troubleshooting
-
-### Backend Issues
-
-**Problem: "FAISS database not found"**
-```bash
-# Solution: Create the database
-cd "my proj"
-python create_database.py
-```
-
-**Problem: "TOGETHER_API_KEY not found"**
-```bash
-# Solution: Create .env file with your API key
-echo "TOGETHER_API_KEY=your_key_here" > .env
-```
-
-**Problem: "Module not found" errors**
-```bash
-# Solution: Reinstall dependencies
-pip install -r requirements.txt
-```
-
-### Frontend Issues
-
-**Problem: "Connection refused" or proxy errors**
-- Ensure backend is running on port 8000
-- Check `vite.config.ts` proxy settings
-- Verify CORS is enabled in backend
-
-**Problem: "Module not found" in frontend**
-```bash
-# Solution: Reinstall node modules
-rm -rf node_modules package-lock.json
-npm install
-```
-
-**Problem: Frontend shows mock responses**
-- This means the backend is not reachable
-- Check backend is running: `http://localhost:8000/docs`
-- Verify proxy configuration in `vite.config.ts`
-
-### Common Issues
-
-**Port already in use:**
-```bash
-# Find and kill process on port 8000 (backend)
-# Windows:
-netstat -ano | findstr :8000
-taskkill /PID <PID> /F
-
-# macOS/Linux:
-lsof -ti:8000 | xargs kill -9
-```
-
-**Slow response times:**
-- First request loads the AI model (takes 10-30 seconds)
-- Subsequent requests are much faster
-- Consider using a GPU-enabled deployment for production
-
-## 🤝 Contributing
-
-Contributions are welcome! Please follow these steps:
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Commit your changes: `git commit -m 'Add amazing feature'`
-4. Push to the branch: `git push origin feature/amazing-feature`
-5. Open a Pull Request
-
-### Code Style
-
-- **Backend**: Follow PEP 8 guidelines
-- **Frontend**: Use ESLint configuration provided
-- Write meaningful commit messages
-- Add comments for complex logic
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- **Together.ai** for providing access to Llama-3-70B
-- **HuggingFace** for embeddings and transformers
-- **Meta AI** for the Llama model
-- **shadcn/ui** for beautiful UI components
-- **FastAPI** team for the excellent framework
-
-## 📞 Support
-
-If you encounter any issues or have questions:
-
-1. Check the [Troubleshooting](#troubleshooting) section
-2. Review the [API Documentation](#api-documentation)
-3. Open an issue on GitHub
-4. Contact the maintainers
-
-## 🔮 Future Enhancements
-
-- [ ] Multi-document support
-- [ ] User authentication
-- [ ] Conversation history
-- [ ] Export chat transcripts
-- [ ] Support for images and diagrams
-- [ ] Fine-tuned medical model
-- [ ] Real-time collaboration
-- [ ] Mobile app version
+**MED AI** is intended for educational, research, and clinical decision support purposes only. It is **not** a substitute for professional medical advice, clinical diagnosis, or hospital emergency protocols. Always seek the advice of a qualified healthcare provider with any questions regarding medical conditions or treatments.
 
 ---
 
-**Built with ❤️ for the medical community**
+## 📄 License
 
-*Last Updated: December 2025*
+Distributed under the **MIT License**. See `LICENSE` for more information.

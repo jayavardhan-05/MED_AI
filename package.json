@@ -1,0 +1,22 @@
+{
+  "name": "med_ai",
+  "version": "1.0.0",
+  "description": "A full-stack AI-powered medical question-answering system that uses advanced natural language processing to provide accurate answers based on pathology documents. The system combines a powerful FastAPI backend with a modern React frontend to deliver an intuitive chat interface for medical professionals and researchers.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npm --prefix frontend run dev",
+    "backend": "python backend/run.py",
+    "build": "npm --prefix frontend run build",
+    "install:frontend": "npm --prefix frontend install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jayavardhan-05/MED_AI.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jayavardhan-05/MED_AI/issues"
+  },
+  "homepage": "https://github.com/jayavardhan-05/MED_AI#readme"
+}
